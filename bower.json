@@ -1,0 +1,13 @@
+{
+    "name": "Angular 2 getting started",
+    "version": "0.0.1",
+    "description": "Getting started with Angular 2",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+    }
+}

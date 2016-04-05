@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Angular 2 Getting Started</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/app.min.css">
+
+        <script src="/js/lib/es6-shim.min.js"></script>
+        <script src="/js/lib/system-polyfills.js"></script>
+        <script src="/js/lib/shims_for_IE.js"></script>
+        <script src="/js/lib/angular2-polyfills.js"></script>
+        <script src="/js/lib/system.src.js"></script>
+        <script src="/js/lib/Rx.js"></script>
+        <script src="/js/lib/angular2.dev.js"></script>
+        <script src="/js/lib/router.dev.js"></script>
+
+        <script>
+            System.config({
+                packages: {
+                    baseURL: '/js/',
+                    js: {
+                        format: 'register',
+                        defaultExtension: 'js'
+                    }
+                }
+            });
+            System.import('/js/main')
+            .then(null, console.error.bind(console));
+        </script>
+
+    </head>
+
+    <body>
+        <my-app>Loading...</my-app>
+    </body>
+</html>
