@@ -64,5 +64,5 @@ gulp.task('default', ['copy_library', 'css']);
  * Watch task
  */
 gulp.task('watch', function() {
-    gulp.watch(project.sass + '/*.scss', ['css']);
+    gulp.watch(project.stylesheets + '/*.scss', ['css']);
 });

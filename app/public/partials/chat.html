@@ -1,0 +1,13 @@
+<strong>
+    <a class="box-header expanded alert button" href="javascript:void(0)">Chatbox</a>
+</strong>
+<table>
+    <tbody>
+        <tr *ngFor="#message of messages">
+            <td class="message-detail"><strong>{{ message.username }}</strong> : {{ message.content }}</td>
+        </tr>
+    </tbody>
+    <div class="input-message">
+        <textarea rows="1" (keyup.enter)="send(iMessage)" [(ngModel)]="iMessage" placeholder="Type message here ..." autosize [autosizeMsg]="iMessage" (msgChange)="updateAutosize($event)"></textarea>
+    </div>
+</table>

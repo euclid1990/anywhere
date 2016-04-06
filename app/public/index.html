@@ -1,8 +1,11 @@
 <html>
     <head>
-        <title>Angular 2 Getting Started</title>
+        <title>Anywhere</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="/bower/foundation-sites/dist/foundation.min.css">
         <link rel="stylesheet" href="/css/app.min.css">
+        <link rel="shortcut icon" href="/img/favicon.ico">
 
         <script src="/js/lib/es6-shim.min.js"></script>
         <script src="/js/lib/system-polyfills.js"></script>
@@ -12,24 +15,13 @@
         <script src="/js/lib/Rx.js"></script>
         <script src="/js/lib/angular2.dev.js"></script>
         <script src="/js/lib/router.dev.js"></script>
-
-        <script>
-            System.config({
-                packages: {
-                    baseURL: '/js/',
-                    js: {
-                        format: 'register',
-                        defaultExtension: 'js'
-                    }
-                }
-            });
-            System.import('/js/main')
-            .then(null, console.error.bind(console));
-        </script>
-
     </head>
 
     <body>
-        <my-app>Loading...</my-app>
+        <app></app>
+        <script src="/bower/jquery/dist/jquery.min.js"></script>
+        <script src="/bower/autosize/dist/autosize.min.js"></script>
+        <script src="/bower/foundation-sites/dist/foundation.min.js"></script>
+        <script src="/js/boot.js"></script>
     </body>
 </html>
