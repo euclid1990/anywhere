@@ -3,3 +3,4 @@
 /typings/*
 /.sass-cache/*/*
 *.log
+.DS_Store

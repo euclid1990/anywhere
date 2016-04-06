@@ -2,6 +2,8 @@
  *  Require packages
  */
 var gulp        = require('gulp'),
+    ts          = require('gulp-typescript'),
+    tslint      = require('gulp-tslint'),
     compass     = require('gulp-compass'),
     cssmin      = require('gulp-cssmin'),
     concat      = require('gulp-concat'),
@@ -10,6 +12,9 @@ var gulp        = require('gulp'),
     watch       = require('gulp-watch'),
     runSequence = require('run-sequence');
 
+var tsProject = ts.createProject('tsconfig.json', {
+    typescript: require('typescript')
+});
 
 /**
  * Configuration assets of project
@@ -17,7 +22,7 @@ var gulp        = require('gulp'),
 var project = {
   basePath: './app/',
   init: function() {
-    this.script         = this.basePath + '/assets/script';
+    this.scripts        = this.basePath + '/assets/scripts';
     this.stylesheets    = this.basePath + '/assets/stylesheets';
     this.js             = this.basePath + '/public/js';
     this.css            = this.basePath + '/public/css';
@@ -46,13 +51,23 @@ gulp.task('copy_library', function() {
 gulp.task('css', function() {
   return gulp.src(project.stylesheets + '/*.scss')
         .pipe(compass({
-          css: project.css,
-          sass: project.stylesheets
+            css: project.css,
+            sass: project.stylesheets
         }))
         .pipe(gulp.dest(project.css))
         .pipe(cssmin())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(project.css));
+});
+
+gulp.task('typescript', function () {
+    return gulp.src([
+            'node_modules/angular2/typings/browser.d.ts',
+            project.scripts + '/*.ts'
+        ])
+        .pipe(tslint()).pipe(tslint.report('prose'))
+        .pipe(ts(tsProject))
+        .pipe(gulp.dest(project.js));
 });
 
 /**
@@ -64,5 +79,6 @@ gulp.task('default', ['copy_library', 'css']);
  * Watch task
  */
 gulp.task('watch', function() {
+    gulp.watch(project.scripts + '/*.ts', ['typescript']);
     gulp.watch(project.stylesheets + '/*.scss', ['css']);
 });
