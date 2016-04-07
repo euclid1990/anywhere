@@ -43,9 +43,18 @@ gulp.task('copy_library', function() {
         'node_modules/systemjs/dist/system.src.js',
         'node_modules/rxjs/bundles/Rx.js',
         'node_modules/angular2/bundles/angular2.dev.js',
-        'node_modules/angular2/bundles/router.dev.js'
+        'node_modules/angular2/bundles/router.dev.js',
+        'node_modules/firebase/lib/firebase-web.js'
     ])
     .pipe(gulp.dest(project.js + '/lib'))
+});
+
+gulp.task('copy_angularfire', function() {
+  return gulp.src([
+        'node_modules/angularfire2/**/*.js',
+        'node_modules/angularfire2/**/*.map'
+    ])
+    .pipe(gulp.dest(project.js + '/lib/angularfire2'))
 });
 
 gulp.task('css', function() {
@@ -62,7 +71,7 @@ gulp.task('css', function() {
 
 gulp.task('typescript', function () {
     return gulp.src([
-            'node_modules/angular2/typings/browser.d.ts',
+            'typings/browser.d.ts',
             project.scripts + '/*.ts'
         ])
         .pipe(tslint()).pipe(tslint.report('prose'))
@@ -73,7 +82,7 @@ gulp.task('typescript', function () {
 /**
  * Default task
  */
-gulp.task('default', ['copy_library', 'css']);
+gulp.task('default', ['copy_library', 'copy_angularfire', 'css']);
 
 /**
  * Watch task
