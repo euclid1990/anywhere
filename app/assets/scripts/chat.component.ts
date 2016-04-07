@@ -1,5 +1,4 @@
 import {Component, EventEmitter} from 'angular2/core';
-import {EmitterService} from './emitter.service';
 import {AutosizeDirective} from './autosize.directive';
 
 export class Message {
@@ -16,24 +15,20 @@ var MESSAGES: Message[] = [
 @Component({
     selector: 'div[name=chat]',
     templateUrl: '/partials/chat.html',
-    providers: [EmitterService],
     directives: [AutosizeDirective],
 })
 
 export class ChatComponent {
 
-    emitterAutosize: EventEmitter<any>;
     messages: Message[];
     iMessage: string;
 
     constructor() {
         this.messages = MESSAGES;
         this.iMessage = null;
-        this.emitterAutosize = EmitterService.get('channel_autoresize');
     }
 
     send(message: string) {
         this.iMessage = null;
-        this.emitterAutosize.emit(true);
     }
 }

@@ -8,6 +8,6 @@
         </tr>
     </tbody>
     <div class="input-message">
-        <textarea rows="1" (keyup.enter)="send(iMessage)" [(ngModel)]="iMessage" placeholder="Type message here ..." autosize></textarea>
+        <textarea rows="1" (keyup.enter)="send(iMessage)" [(ngModel)]="iMessage" placeholder="Type message here ..." autosize [autosizeUpdate]="iMessage"></textarea>
     </div>
 </table>
