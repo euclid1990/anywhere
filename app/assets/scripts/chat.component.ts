@@ -1,16 +1,12 @@
-import {Component, EventEmitter} from 'angular2/core';
+import {Component, OnInit, EventEmitter, Input} from 'angular2/core';
 import {AutosizeDirective} from './autosize.directive';
+import {DatabaseService} from './database.service';
 
-export class Message {
-    username: string;
+type Message = {
+    user_id: string;
+    user_name: string;
     content: string;
 }
-
-var MESSAGES: Message[] = [
-    { username: "Mr. Nice", content: "We want to start the TypeScript compiler" },
-    { username: "Narco", content: "This will keep the application running while we continue to build the Tour of Heroes." },
-    { username: "Bombasto", content: "Let’s create an array of ten heroes at the bottom" },
-];
 
 @Component({
     selector: 'div[name=chat]',
@@ -18,17 +14,42 @@ var MESSAGES: Message[] = [
     directives: [AutosizeDirective],
 })
 
-export class ChatComponent {
+export class ChatComponent implements OnInit {
 
-    messages: Message[];
+    @Input('user') user: any;
+    isLoading: boolean = true;
+    total: number = null;
+    messages: any;
     iMessage: string;
 
-    constructor() {
-        this.messages = MESSAGES;
+    constructor(public dbService: DatabaseService) {
+        this.messages = this.dbService.getMessages();
         this.iMessage = null;
     }
 
+    ngOnInit() {
+        let self = this;
+        this.messages.subscribe((l) => {
+            this.isLoading = false;
+            self.total = l.length;
+            console.log('length', l.length);
+        });
+    }
+
     send(message: string) {
+        message = message.replace(/^\s+|\s+$/g, '')
+        if (message.length) {
+            let self = this;
+            let msgObj: Message = {
+                user_id: this.user.id,
+                user_name: this.user.name,
+                content: message
+            }
+            this.dbService.saveMessage(msgObj).then(function(response) {
+            }, function(error) {
+                console.error(error);
+            });
+        }
         this.iMessage = null;
     }
 }

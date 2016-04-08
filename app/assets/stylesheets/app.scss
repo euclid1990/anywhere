@@ -21,6 +21,13 @@ body {
 
 .box-header {
     font-size: 1em;
+    &.button {
+        margin: 0;
+    }
+}
+
+.enable-newline {
+    white-space: pre-wrap;
 }
 
 .chat-container {
@@ -62,5 +69,9 @@ body {
         -moz-osx-font-smoothing: grayscale;
         height: 2rem;
         min-height: 2rem;
+    }
+    .notice-message {
+        padding: 10px;
+        display: block;
     }
 }

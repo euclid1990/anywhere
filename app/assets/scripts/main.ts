@@ -1,12 +1,14 @@
 import {bootstrap}    from 'angular2/platform/browser';
 import {AppComponent} from './app.component';
-import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire} from 'angularfire2';
-import {FirebaseService} from './firebase.service';
+import {StorageService} from './storage.service';
+import {DatabaseService} from './database.service';
+import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire, FirebaseRef} from 'angularfire2';
 
 const providers: any[] = [
-    FirebaseService,
+    StorageService,
+    DatabaseService,
     FIREBASE_PROVIDERS,
-    defaultFirebase('https://anywhere-app.firebaseio.com'),
+    defaultFirebase(DatabaseService.dbRef),
     AngularFire
 ];
 
