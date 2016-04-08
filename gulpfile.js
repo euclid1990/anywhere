@@ -10,6 +10,7 @@ var gulp        = require('gulp'),
     uglify      = require('gulp-uglify'),
     rename      = require('gulp-rename'),
     watch       = require('gulp-watch'),
+    browserify  = require('gulp-browserify'),
     runSequence = require('run-sequence');
 
 var tsProject = ts.createProject('tsconfig.json', {
@@ -20,22 +21,22 @@ var tsProject = ts.createProject('tsconfig.json', {
  * Configuration assets of project
  */
 var project = {
-  basePath: './app/',
-  init: function() {
-    this.scripts        = this.basePath + '/assets/scripts';
-    this.stylesheets    = this.basePath + '/assets/stylesheets';
-    this.js             = this.basePath + '/public/js';
-    this.css            = this.basePath + '/public/css';
-    this.banner         = '/**\n' +
-                          ' * <%= pkg.name %>\n' +
-                          ' * <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                          ' */\n';
-    return this;
-  }
+    basePath: './app/',
+    init: function() {
+        this.scripts        = this.basePath + '/assets/scripts';
+        this.stylesheets    = this.basePath + '/assets/stylesheets';
+        this.js             = this.basePath + '/public/js';
+        this.css            = this.basePath + '/public/css';
+        this.banner         = '/**\n' +
+                              ' * <%= pkg.name %>\n' +
+                              ' * <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+                              ' */\n';
+        return this;
+    }
 }.init();
 
 gulp.task('copy_library', function() {
-  return gulp.src([
+    return gulp.src([
         'node_modules/es6-shim/es6-shim.min.js',
         'node_modules/systemjs/dist/system-polyfills.js',
         'node_modules/angular2/es6/dev/src/testing/shims_for_IE.js',
@@ -43,8 +44,7 @@ gulp.task('copy_library', function() {
         'node_modules/systemjs/dist/system.src.js',
         'node_modules/rxjs/bundles/Rx.js',
         'node_modules/angular2/bundles/angular2.dev.js',
-        'node_modules/angular2/bundles/router.dev.js',
-        'node_modules/firebase/lib/firebase-web.js'
+        'node_modules/angular2/bundles/router.dev.js'
     ])
     .pipe(gulp.dest(project.js + '/lib'))
 });
@@ -55,6 +55,14 @@ gulp.task('copy_angularfire', function() {
         'node_modules/angularfire2/**/*.map'
     ])
     .pipe(gulp.dest(project.js + '/lib/angularfire2'))
+});
+
+gulp.task('browserify', function () {
+    return gulp.src([
+        'node_modules/firebase/lib/firebase-web.js'
+    ])
+    .pipe(browserify())
+    .pipe(gulp.dest(project.js + '/lib'));
 });
 
 gulp.task('css', function() {
@@ -82,7 +90,7 @@ gulp.task('typescript', function () {
 /**
  * Default task
  */
-gulp.task('default', ['copy_library', 'copy_angularfire', 'css']);
+gulp.task('default', ['copy_library', 'copy_angularfire', 'browserify', 'css']);
 
 /**
  * Watch task
