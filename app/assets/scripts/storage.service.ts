@@ -28,4 +28,8 @@ export class StorageService {
     setUser(user: User): any {
         return this.storage.set(USER_KEY, user);
     }
+
+    removeUser(): any {
+        return this.storage.deleteKey(USER_KEY);
+    }
 }

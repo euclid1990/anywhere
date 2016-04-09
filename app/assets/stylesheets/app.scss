@@ -4,6 +4,11 @@ body {
     line-height: 1.72222;
     color: #34495e;
     background-color: #fff;
+    background: url(../img/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .header {
@@ -17,12 +22,17 @@ body {
         margin: -4em auto 0;
         background-size: 9em;
     }
+    .clock {
+        font-style: italic;
+        margin-bottom: .5rem;
+    }
 }
 
 .box-header {
     font-size: 1em;
     &.button {
         margin: 0;
+        cursor: default;
     }
 }
 
@@ -71,7 +81,110 @@ body {
         min-height: 2rem;
     }
     .notice-message {
-        padding: 10px;
+        padding: 0.5rem;
         display: block;
+    }
+    .chat-messages {
+        display: block;
+        max-height: 15rem;
+        overflow-y: auto;
+        tr {
+            position: relative;
+            width: 100%;
+            display: block;
+            &:hover {
+                .message-delete {
+                    display: block !important;
+                }
+            }
+        }
+    }
+    .its-me {
+        color: #96622A !important;
+    }
+    strong.user-name {
+        display: block;
+    }
+    .user-name {
+        display: inherit;
+        max-width: 10rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .message-content {
+        display: block;
+        word-break: break-word;
+    }
+    .message-delete {
+        display: none;
+        color: #86A1BC;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        &:hover {
+            cursor: pointer;
+            color: #5E778F;
+        }
+    }
+    .clear-all {
+        float: right;
+        clear: both;
+        cursor: pointer;
+    }
+}
+
+.map-container {
+    border: 1px solid #777777;
+    margin-bottom: 1rem;
+    .get-location {
+        float: right;
+        clear: both;
+        cursor: pointer;
+    }
+}
+
+.spinner {
+    margin: 1rem auto;
+    height: 3rem;
+    text-align: center;
+    font-size: 1rem;
+    >div {
+        background-color: #2980b9;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+
+        -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+    }
+    .rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+    .rect3 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+    .rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+    .rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+    @-webkit-keyframes sk-stretchdelay {
+        0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+        20% { -webkit-transform: scaleY(1.0) }
+    }
+    @keyframes sk-stretchdelay {
+        0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+        }  20% {
+            transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+        }
     }
 }

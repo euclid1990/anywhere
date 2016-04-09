@@ -1,15 +1,13 @@
 import {Component, OnInit, Inject, ElementRef} from 'angular2/core';
+import {Observable} from 'rxjs/Rx';
 import {ChatComponent} from './chat.component';
 import {MapComponent} from './map.component';
 import {ModalDirective} from './modal.directive';
 import {StorageService} from './storage.service';
 import {DatabaseService} from './database.service';
+import * as types from './types';
 
 declare var $: any;
-type User = {
-    id: string;
-    name: string;
-}
 
 @Component({
     selector: 'app',
@@ -19,9 +17,11 @@ type User = {
 
 export class AppComponent implements OnInit {
 
-    public user: User;
+    public user: types.User;
     public signupAction: string = ModalDirective.CLOSE;
     public elementRef: ElementRef;
+    public clock: number;
+    public interval: any;
 
     constructor(@Inject(ElementRef)  elementRef: ElementRef,
                 public dbService: DatabaseService,
@@ -36,7 +36,19 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        let self = this;
         $(document).foundation();
+        if (this.user.id) {
+            this.dbService.findUser(this.user.id, (snapshot: any) => {
+                if (!snapshot.exists()) {
+                    self.storageService.removeUser();
+                    self.signupAction = ModalDirective.OPEN;
+                }
+            });
+        }
+        this.interval = setInterval(() => {
+            self.clock = Date.now();
+        }, 1000);
     }
 
     setUser() {

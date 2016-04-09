@@ -1,16 +1,33 @@
 <strong>
-    <a class="box-header expanded alert button" href="javascript:void(0)">Chatbox <span *ngIf="user.name !== '' || user.name !== null">[ {{ user.name }} ]</span></a>
+    <a class="box-header expanded alert button" href="javascript:void(0)">
+        Chatbox
+        <span  *ngIf="user.name !== '' || user.name !== null">
+            [ <span class="user-name">{{ user.name }}</span> ]
+        </span>
+        <span class="top clear-all" title="Clear all messages!" (click)="clearAll()"><i class="fi-trash"></i></span>
+    </a>
+
 </strong>
 <table>
-    <tbody>
+    <tbody class="chat-messages" autoscroll [autoscrollUpdate]="sent">
         <tr class="notice-message" *ngIf="isLoading">
-            <strong>Loading ...</strong>
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
         </tr>
         <tr class="notice-message" *ngIf="total == 0">
             <strong>There are no messages here. Be first who post here.</strong>
         </tr>
         <tr *ngFor="#message of messages | async">
-            <td class="message-detail"><strong>{{ message.user_name }}</strong> : <span class="enable-newline">{{ message.content }}</span></td>
+            <td class="message-detail">
+                <strong class="user-name" [class.its-me]="user.id == message.user_id">{{ message.user_name }}</strong>
+                <span class="message-content enable-newline">{{ message.content }}</span>
+            </td>
+            <span *ngIf="message.user_id == user.id" class="message-delete" (click)="remove(message.$key, message.user_id)"><i class="fi-x"></i></span>
         </tr>
     </tbody>
     <div class="input-message">

@@ -12,6 +12,7 @@
         "jquery": "~2.2.3",
         "foundation-sites": "~6.2.0",
         "autosize": "~3.0.15",
-        "simpleStorage": "~0.2.1"
+        "simpleStorage": "~0.2.1",
+        "foundation-icon-fonts": "*"
     }
 }

@@ -11,4 +11,7 @@ export class MapComponent {
 
     }
 
+    getLocation() {
+
+    }
 }

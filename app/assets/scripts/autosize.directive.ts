@@ -7,6 +7,9 @@ declare var autosize: any;
 
 @Directive({
     selector: '[autosize]',
+    host: {
+        '(keyup.enter)': 'changeAutosize($event)'
+    }
 })
 
 export class AutosizeDirective {
@@ -24,5 +27,14 @@ export class AutosizeDirective {
         if (typeof autosize != 'undefined') {
             autosize(this.selector);
         }
+    }
+
+    changeAutosize($event :any) {
+        /*
+        if (typeof autosize != 'undefined') {
+            autosize(this.selector);
+            this.selector.val('');
+        }
+        */
     }
 }

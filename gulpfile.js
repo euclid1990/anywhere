@@ -38,7 +38,9 @@ var project = {
 gulp.task('copy_library', function() {
     return gulp.src([
         'node_modules/es6-shim/es6-shim.min.js',
+        'node_modules/es6-shim/es6-shim.map',
         'node_modules/systemjs/dist/system-polyfills.js',
+        'node_modules/systemjs/dist/system-polyfills.js.map',
         'node_modules/angular2/es6/dev/src/testing/shims_for_IE.js',
         'node_modules/angular2/bundles/angular2-polyfills.js',
         'node_modules/systemjs/dist/system.src.js',
@@ -90,7 +92,7 @@ gulp.task('typescript', function () {
 /**
  * Default task
  */
-gulp.task('default', ['copy_library', 'copy_angularfire', 'browserify', 'css']);
+gulp.task('default', ['copy_library', 'copy_angularfire', 'browserify', 'css', 'typescript']);
 
 /**
  * Watch task
