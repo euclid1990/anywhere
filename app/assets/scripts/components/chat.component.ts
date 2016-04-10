@@ -1,9 +1,9 @@
 import {Component, OnInit, EventEmitter, Input} from 'angular2/core';
-import {AutosizeDirective} from './autosize.directive';
-import {AutoscrollDirective} from './autoscroll.directive';
-import {DatabaseService} from './database.service';
-import {EmitterService} from './emitter.service';
-import * as types from './types';
+import * as types from '../types';
+import {AutosizeDirective} from '../directives/autosize.directive';
+import {AutoscrollDirective} from '../directives/autoscroll.directive';
+import {DatabaseService} from '../services/database.service';
+import {EmitterService} from '../services/emitter.service';
 
 @Component({
     selector: 'div[name=chat]',

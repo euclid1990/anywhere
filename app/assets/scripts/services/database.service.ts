@@ -1,7 +1,7 @@
 import {Injectable, Inject} from 'angular2/core';
 import {FIREBASE_PROVIDERS, defaultFirebase, AngularFire, FirebaseListObservable, FirebaseRef} from 'angularfire2';
 import {Observable} from 'rxjs/Observable';
-import * as types from './types';
+import * as types from '../types';
 
 const DATABASE_REFERENCE = 'https://anywhere-app.firebaseio.com';
 const TABLE_NAMES = ['users', 'messages'];

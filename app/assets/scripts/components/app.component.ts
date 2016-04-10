@@ -1,12 +1,12 @@
 import {Component, OnInit, Inject, ElementRef} from 'angular2/core';
 import {Observable} from 'rxjs/Rx';
+import * as types from '../types';
+import {ModalDirective} from '../directives/modal.directive';
+import {DatabaseService} from '../services/database.service';
+import {StorageService} from '../services/storage.service';
+import {DatetimePipe} from '../pipes/datetime.pipe';
 import {ChatComponent} from './chat.component';
 import {MapComponent} from './map.component';
-import {ModalDirective} from './modal.directive';
-import {StorageService} from './storage.service';
-import {DatabaseService} from './database.service';
-import {DatetimePipe} from './datetime.pipe';
-import * as types from './types';
 
 declare var $: any;
 

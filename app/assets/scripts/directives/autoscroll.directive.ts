@@ -1,6 +1,6 @@
 import {Directive, ElementRef, Renderer} from 'angular2/core';
 import {Input, Output, EventEmitter} from 'angular2/core';
-import {EmitterService} from './emitter.service';
+import {EmitterService} from '../services/emitter.service';
 
 // Get jQuery and Autosize Function
 declare var $: any;

@@ -48,7 +48,7 @@ gulp.task('copy_library', function() {
         'node_modules/angular2/bundles/angular2.dev.js',
         'node_modules/angular2/bundles/router.dev.js'
     ])
-    .pipe(gulp.dest(project.js + '/lib'))
+    .pipe(gulp.dest(project.js + '/libs'))
 });
 
 gulp.task('copy_angularfire', function() {
@@ -56,7 +56,7 @@ gulp.task('copy_angularfire', function() {
         'node_modules/angularfire2/**/*.js',
         'node_modules/angularfire2/**/*.map'
     ])
-    .pipe(gulp.dest(project.js + '/lib/angularfire2'))
+    .pipe(gulp.dest(project.js + '/libs/angularfire2'))
 });
 
 gulp.task('browserify', function () {
@@ -64,7 +64,7 @@ gulp.task('browserify', function () {
         'node_modules/firebase/lib/firebase-web.js'
     ])
     .pipe(browserify())
-    .pipe(gulp.dest(project.js + '/lib'));
+    .pipe(gulp.dest(project.js + '/libs'));
 });
 
 gulp.task('css', function() {
@@ -82,7 +82,8 @@ gulp.task('css', function() {
 gulp.task('typescript', function () {
     return gulp.src([
             'typings/browser.d.ts',
-            project.scripts + '/*.ts'
+            project.scripts + '/*.ts',
+            project.scripts + '/*/*.ts'
         ])
         .pipe(tslint()).pipe(tslint.report('prose'))
         .pipe(ts(tsProject))

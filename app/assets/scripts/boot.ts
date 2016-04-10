@@ -7,8 +7,8 @@ System.config({
         }
     },
     map: {
-        firebase: '/js/lib/firebase-web.js',
-        angularfire2: '/js/lib/angularfire2'
+        firebase: '/js/libs/firebase-web.js',
+        angularfire2: '/js/libs/angularfire2'
     },
     packages: {
         baseURL: '/js/',
