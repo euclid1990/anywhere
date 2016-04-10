@@ -135,8 +135,12 @@ body {
 }
 
 .map-container {
+    background-color: #ffffff;
     border: 1px solid #777777;
     margin-bottom: 1rem;
+    #map {
+        height: 25rem;
+    }
     .get-location {
         float: right;
         clear: both;
