@@ -84,7 +84,6 @@ export class DatabaseService {
     }
 
     deleteMessage(key: string) {
-        console.log(key);
         return this.messages.remove(key);
     }
 
