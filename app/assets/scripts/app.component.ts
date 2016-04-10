@@ -5,6 +5,7 @@ import {MapComponent} from './map.component';
 import {ModalDirective} from './modal.directive';
 import {StorageService} from './storage.service';
 import {DatabaseService} from './database.service';
+import {DatetimePipe} from './datetime.pipe';
 import * as types from './types';
 
 declare var $: any;
@@ -12,7 +13,8 @@ declare var $: any;
 @Component({
     selector: 'app',
     templateUrl: '/partials/app.html',
-    directives: [ChatComponent, MapComponent, ModalDirective]
+    directives: [ChatComponent, MapComponent, ModalDirective],
+    pipes: [DatetimePipe]
 })
 
 export class AppComponent implements OnInit {
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit {
     public signupAction: string = ModalDirective.CLOSE;
     public elementRef: ElementRef;
     public clock: number;
-    public interval: any;
+    public intervalId: any;
 
     constructor(@Inject(ElementRef)  elementRef: ElementRef,
                 public dbService: DatabaseService,
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit {
         } else {
             this.user = user;
         }
+        this.clock = Date.now();
     }
 
     ngOnInit() {
@@ -46,9 +49,13 @@ export class AppComponent implements OnInit {
                 }
             });
         }
-        this.interval = setInterval(() => {
+        this.intervalId = setInterval(() => {
             self.clock = Date.now();
         }, 1000);
+    }
+
+    stopInterval()  {
+        clearInterval(this.intervalId);
     }
 
     setUser() {
