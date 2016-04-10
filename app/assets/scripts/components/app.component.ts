@@ -1,4 +1,5 @@
-import {Component, OnInit, Inject, ElementRef} from 'angular2/core';
+import {Component, Inject, ElementRef, ViewChild} from 'angular2/core';
+import {OnInit, AfterViewInit} from 'angular2/core';
 import {Observable} from 'rxjs/Rx';
 import * as types from '../types';
 import {ModalDirective} from '../directives/modal.directive';
@@ -17,8 +18,9 @@ declare var $: any;
     pipes: [DatetimePipe]
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
+    @ViewChild(ChatComponent) private _chatComponent: ChatComponent;
     public user: types.User;
     public signupAction: string = ModalDirective.CLOSE;
     public elementRef: ElementRef;
@@ -54,6 +56,12 @@ export class AppComponent implements OnInit {
         }, 1000);
     }
 
+    ngAfterViewInit() {
+        if (this.signupAction == ModalDirective.CLOSE) {
+            this._chatComponent.focus();
+        }
+    }
+
     stopInterval()  {
         clearInterval(this.intervalId);
     }
@@ -64,6 +72,7 @@ export class AppComponent implements OnInit {
         this.dbService.saveUser(this.user).then(function(response: any) {
             self.user.id = response.key();
             self.storageService.setUser(self.user);
+            self._chatComponent.focus();
         }, function(error) {
             console.error(error);
         });

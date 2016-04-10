@@ -99,6 +99,6 @@ gulp.task('default', ['copy_library', 'copy_angularfire', 'browserify', 'css', '
  * Watch task
  */
 gulp.task('watch', function() {
-    gulp.watch(project.scripts + '/*.ts', ['typescript']);
+    gulp.watch(project.scripts + '/**/*.ts', ['typescript']);
     gulp.watch(project.stylesheets + '/*.scss', ['css']);
 });

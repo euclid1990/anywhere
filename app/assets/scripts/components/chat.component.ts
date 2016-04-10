@@ -1,9 +1,11 @@
-import {Component, OnInit, EventEmitter, Input} from 'angular2/core';
+import {Component, OnInit, EventEmitter, Input, ElementRef} from 'angular2/core';
 import * as types from '../types';
 import {AutosizeDirective} from '../directives/autosize.directive';
 import {AutoscrollDirective} from '../directives/autoscroll.directive';
 import {DatabaseService} from '../services/database.service';
 import {EmitterService} from '../services/emitter.service';
+
+declare var $: any;
 
 @Component({
     selector: 'div[name=chat]',
@@ -22,7 +24,7 @@ export class ChatComponent implements OnInit {
     iMessage: string;
     sent: boolean = false;
 
-    constructor(public dbService: DatabaseService) {
+    constructor(public elementRef: ElementRef, public dbService: DatabaseService) {
         this.messages = this.dbService.getMessages();
         this.iMessage = null;
         this.emitterAutoscroll = EmitterService.get('channel_autoscroll');
@@ -35,6 +37,10 @@ export class ChatComponent implements OnInit {
             self.total = l.length;
             self.emitterAutoscroll.emit(true);
         });
+    }
+
+    focus() {
+        $(this.elementRef.nativeElement).find('textarea').focus();
     }
 
     send(message: string) {
