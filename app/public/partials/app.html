@@ -6,7 +6,7 @@
             <div class="text-center clock"><i class="fi-clock"></i> {{ clock | datetime }}</div>
         </div>
         <div class="chat-container" name="chat" [user]="user"></div>
-        <div class="map-container" name="map"></div>
+        <div class="map-container" name="map" [(user)]="user"></div>
     </div>
 </div>
 

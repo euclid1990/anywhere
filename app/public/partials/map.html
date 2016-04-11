@@ -1,7 +1,7 @@
 <strong>
     <a class="box-header expanded secondary button" href="javascript:void(0)">
     	Map
-    	<span class="top get-location" title="Get your location!" (click)="getLocation()"><i class="btn fi-marker"></i></span>
+    	<span class="top get-location" title="Get your location!" (click)="getLocation()"><i *ngIf="!geolocationLoading" class="btn fi-marker"></i><div *ngIf="geolocationLoading" class="loading"><img src="../img/geolocation.gif" height="16" width="16"></div></span>
     </a>
 </strong>
-<div id="map" class="map"></div>
+<div id="map" class="map" (onGeolocationChange)="(setLocation($event))"></div>

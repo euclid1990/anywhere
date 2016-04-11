@@ -145,6 +145,12 @@ body {
         float: right;
         clear: both;
         cursor: pointer;
+        .loading {
+            padding: 2px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            display: inline-block;
+        }
     }
 }
 

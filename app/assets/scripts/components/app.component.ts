@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                 public storageService: StorageService) {
         let user = this.storageService.getUser();
         if (!user) {
-            this.user = { id: null, name: null };
+            this.user = { id: null, name: null, lat: null, lng: null };
             this.signupAction = ModalDirective.OPEN;
         } else {
             this.user = user;

@@ -67,12 +67,20 @@ export class DatabaseService {
         return this.users;
     }
 
+    observerUser(callback: (snapshot: any) => any) {
+        return this.refs['users'].on('value', callback);
+    }
+
     findUser(key: string, callback: (snapshot: any) => any) {
         return this.refs['users'].child(`/${key}`).once('value', callback);
     }
 
     saveUser(user: types.User) {
         return this.users.add(user);
+    }
+
+    updateUser(key: string, data: any, callback: (error: any) => any) {
+        return this.refs['users'].child(`/${key}`).update(data, callback);
     }
 
     getMessages(): FirebaseListObservable<any[]> {

@@ -1,49 +1,73 @@
 import {Component, EventEmitter, Input, Inject, ElementRef} from 'angular2/core';
-import {OnInit, AfterViewInit} from 'angular2/core';
+import {OnInit, AfterViewInit, ViewChild} from 'angular2/core';
 import {Observable} from 'rxjs/Rx';
 import * as types from '../types';
 import {DatabaseService} from '../services/database.service';
 import {StorageService} from '../services/storage.service';
 import {EmitterService} from '../services/emitter.service';
-
-declare var $: any;
-declare var document: any;
-declare var google: any;
+import {MapDirective} from '../directives/map.directive';
 
 @Component({
     selector: 'div[name=map]',
     templateUrl: '/partials/map.html',
+    directives: [MapDirective],
 })
 
 export class MapComponent implements OnInit, AfterViewInit {
 
-    public mapId: string = 'map';
+    @ViewChild(MapDirective) private _mapDirective: MapDirective;
+    @Input('user') user: any;
     public map: any;
+    public geolocationLoading: boolean = false;
+    public positions: Array<any> = [];
+    emitter: EventEmitter<any> = EmitterService.get('channel_map');
 
     constructor(public elementRef: ElementRef,
                 public dbService: DatabaseService,
                 public storageService: StorageService) {
-
     }
 
     ngOnInit() {
         let self = this;
-        self.initMap();
+        this.dbService.observerUser((snapshot: any) => {
+            let items = snapshot.val();
+            self.positions = [];
+            for (let key in items) {
+                let item = items[key];
+                if ((typeof item.lat != 'undefined') && (typeof item.lng != 'undefined')) {
+                    let pos: types.Location = {
+                        lat: item.lat,
+                        lng: item.lng
+                    };
+                    self.positions.push(pos);
+                }
+            }
+            self.emitter.emit(self.positions);
+        });
     }
 
     ngAfterViewInit() {
         let self = this;
+        if (self.user.lat && this.user.lng) {
+            this._mapDirective.geolocation();
+        }
     }
 
-    initMap() {
-        let self = this;
-        this.map = new google.maps.Map(document.getElementById(self.mapId), {
-          center: {lat: 21.0227732, lng: 105.8019441},
-          zoom: 12
-        });
-     }
-
     getLocation() {
+        this.geolocationLoading = true;
+        this._mapDirective.geolocation();
+    }
 
+    setLocation(pos: types.Location) {
+        let self = this;
+        this.user.lat = pos.lat;
+        this.user.lng = pos.lng;
+        this.dbService.updateUser(this.user.id, this.user, (error: any) => {
+            if (error) {
+            } else {
+                self.storageService.setUser(self.user);
+                self.geolocationLoading = false;
+            }
+        });
     }
 }
