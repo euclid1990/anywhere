@@ -6,5 +6,6 @@
     ],
     "server": {
         "baseDir": "./app/public"
-    }
+    },
+    "ghostMode": false
 }
