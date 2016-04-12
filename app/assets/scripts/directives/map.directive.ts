@@ -57,6 +57,7 @@ export class MapDirective {
                     map: self.map,
                     title: 'Me!'
                 });
+                self.map.setCenter(pos);
                 self.onGeolocationChange.emit(pos);
             }, function() {
                 self.handleLocationError(true, self.map);
