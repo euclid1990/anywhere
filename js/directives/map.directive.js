@@ -60,6 +60,7 @@ System.register(['angular2/core', '../services/emitter.service'], function(expor
                                 map: self.map,
                                 title: 'Me!'
                             });
+                            self.map.setCenter(pos);
                             self.onGeolocationChange.emit(pos);
                         }, function () {
                             self.handleLocationError(true, self.map);
@@ -93,13 +94,13 @@ System.register(['angular2/core', '../services/emitter.service'], function(expor
                     this.markers = [];
                 };
                 __decorate([
-                    core_2.Output(), 
+                    core_2.Output(),
                     __metadata('design:type', Object)
                 ], MapDirective.prototype, "onGeolocationChange", void 0);
                 MapDirective = __decorate([
                     core_1.Directive({
                         selector: '[id=map]'
-                    }), 
+                    }),
                     __metadata('design:paramtypes', [core_1.ElementRef, core_1.Renderer])
                 ], MapDirective);
                 return MapDirective;
