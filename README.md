@@ -28,4 +28,4 @@ http://localhost:8666/
 
 ## Online Demo
 
-[http://euclid1990.github.io/anywhere](http://euclid1990.github.io/anywhere)
+[https://euclid1990.github.io/anywhere/](https://euclid1990.github.io/anywhere/)
